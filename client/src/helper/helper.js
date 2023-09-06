@@ -3,13 +3,13 @@ import axios from "axios";
 // axios.defaults.baseURL = process.env.BACKEND_SERVER_URL;
 axios.defaults.baseURL = "http://localhost:5000";
 
-export async function registerUser(data) {
-  try {
-    const {
-      data: { msg },
-    } = await axios.post(`/auth/register`, data);
+// const friends = useSelector((state) => state.user.friends)
 
-    return Promise.resolve(msg);
+export async function registerUser(userData) {
+  try {
+    await axios.post(`/auth/register`, userData);
+
+    return Promise.resolve();
   } catch (error) {
     return Promise.reject({ error });
   }

@@ -16,6 +16,16 @@ export async function verifyUser(req, res, next) {
   }
 }
 
+/** GET ALL USERS */
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    return res.status(201).send(users);
+  } catch (error) {
+    return res.status(500).send({ err: "error" });
+  }
+};
+
 /* REGISTER USER 
 {
   "firstName": "punit",
@@ -77,7 +87,7 @@ export async function login(req, res) {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials. " });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: user._id, user }, process.env.JWT_SECRET);
     delete user.password;
     res.status(200).json({ token, user });
   } catch (err) {

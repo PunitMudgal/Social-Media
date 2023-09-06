@@ -17,12 +17,13 @@ function Register() {
 
   const { values, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: {
-      firstName: "Name",
-      lastName: "dont",
-      email: "nothing@gmail.com",
+      firstName: "Punit",
+      lastName: "Mudgal",
+      email: "punit.mudgal@gmail.com",
       password: "@password",
       picturePath: "",
-      occupation: "nothing",
+      occupation: "Fullstack Developer",
+      address: "Gurugram",
     },
     validate: registerValidation,
     validateOnBlur: false,
@@ -30,13 +31,15 @@ function Register() {
     onSubmit: async (values, action) => {
       values = await Object.assign(values, { picturePath: file || "" });
       let registerPromise = registerUser(values);
+
       toast.promise(registerPromise, {
         loading: "Creating Account...",
         success: "Registered!",
         error: "Couldn't Register!",
       });
-      console.log("value", values);
-      // action.resetForm();
+      registerPromise.then(function () {
+        navigate("/");
+      });
     },
   });
 
@@ -150,10 +153,7 @@ function Register() {
           <div className="text-center py-4 md:py-2">
             <span className="text-teal-800">
               Already have an account?{" "}
-              <Link
-                className="text-red-500 font-semibold underline"
-                to="/signin"
-              >
+              <Link className="text-red-500 font-semibold underline" to="/">
                 Login
               </Link>
             </span>

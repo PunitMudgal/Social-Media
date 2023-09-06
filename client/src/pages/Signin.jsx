@@ -6,9 +6,13 @@ import { Toaster, toast } from "react-hot-toast";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Login } from "../helper/helper";
+import { useDispatch, useSelector } from "react-redux";
+import { setLogin } from "../store/authSlice";
 
 function Signin() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // const user = useSelector((state) => state.auth.user);
 
   const { values, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: {
@@ -20,16 +24,20 @@ function Signin() {
     validateOnChange: false,
     onSubmit: async (values, action) => {
       let loginPromise = Login(values);
+
       toast.promise(loginPromise, {
         loading: "Loging In...",
         success: "login Successful",
         error: "Couldn't Login",
       });
       loginPromise.then((res) => {
-        let { token } = res.data;
+        let { user, token } = res.data;
+        // console.log(user, token);
+        dispatch(setLogin(user));
         localStorage.setItem("token", token);
       });
-      // action.resetForm();
+      action.resetForm();
+      // navigate("/home");
     },
   });
 
@@ -85,7 +93,10 @@ function Signin() {
           <div className="text-center py-4 md:py-2">
             <span className="text-teal-800">
               Don't have an account?{" "}
-              <Link className="text-red-500 font-semibold underline" to="/">
+              <Link
+                className="text-red-500 font-semibold underline"
+                to="/register"
+              >
                 Register
               </Link>
             </span>
