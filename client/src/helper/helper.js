@@ -1,9 +1,14 @@
 import axios from "axios";
-
+import jwt_decode from "jwt-decode";
 // axios.defaults.baseURL = process.env.BACKEND_SERVER_URL;
 axios.defaults.baseURL = "http://localhost:5000";
 
-// const friends = useSelector((state) => state.user.friends)
+export async function getEmailFromToken() {
+  const token = localStorage.getItem("token");
+  if (!token) return Promise.reject("Token Not Found!");
+  let decode = await jwt_decode(token);
+  return decode;
+}
 
 export async function registerUser(userData) {
   try {
@@ -34,7 +39,7 @@ export async function Login({ email, password }) {
 export async function updateProfile(userData) {
   try {
     const token = await localStorage.getItem("token");
-    const data = await axios.put("/auth/updateUser", userData, {
+    const data = await axios.patch("/users/updateUser", userData, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return Promise.resolve({ data });

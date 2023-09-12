@@ -19,7 +19,7 @@ function Register() {
     initialValues: {
       firstName: "Punit",
       lastName: "Mudgal",
-      email: "punit.mudgal@gmail.com",
+      email: "punitmudgal@gmail.com",
       password: "@password",
       picturePath: "",
       occupation: "Fullstack Developer",
@@ -79,7 +79,7 @@ function Register() {
               />
             </label>
             <input
-              value={values.picturePath}
+              // value={values.picturePath}
               onChange={onUpload}
               onBlur={handleBlur}
               type="file"

@@ -4,20 +4,29 @@ import User from "../models/User.js";
 export const getUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await User.findById(id);
-    res.status(200).json(user);
+
+    if (!id) return res.status(501).send({ err: "envalid id!" });
+    const findUser = await User.findById(id);
+    if (findUser) {
+      /** remove password from user */
+      // mongoose return unnecessary data with object so convert it into json
+      const { password, ...rest } = Object.assign({}, findUser.toJSON());
+      return res.status(201).send(rest);
+    } else {
+      return res.status(404).send({ error: "couldn't find the user" });
+    }
   } catch (error) {
     return res.status(404).json({ msg: error.message });
   }
 };
 
-// GET ALL USERS /allUsers
+// GET ALL USERS /getUsers
 export const getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
-    res.status(200).json(users);
+    res.status(200).send(users);
   } catch (error) {
-    return res.status(404).json({ msg: error.message });
+    return res.status(404).send({ msg: error.message });
   }
 };
 
@@ -73,3 +82,26 @@ export const addRemoveFriends = async (req, res) => {
     return res.status(404).json({ msg: error.message });
   }
 };
+
+/** UPDATE USER /updateUser */
+export async function updateUser(req, res) {
+  try {
+    const { userId } = req.user;
+    // const id = req.query.id;
+    if (userId) {
+      const body = req.body;
+
+      // update the data
+      const updateInfo = await User.updateOne({ _id: userId }, body);
+      if (updateInfo)
+        return res.status(201).send({ msg: "Record Updated!", updateInfo });
+      else {
+        return res.status(401).send({ error: "couldn't update the user Info" });
+      }
+    } else {
+      return res.status(401).send({ error: "user not found!" });
+    }
+  } catch (error) {
+    return res.status(501).send({ error });
+  }
+}

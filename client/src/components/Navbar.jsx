@@ -20,10 +20,10 @@ function Navbar() {
   const darkMode = useSelector((state) => state.auth.darkMode);
   const user = useSelector((state) => state.auth.user);
   // console.log(user, "user");
-  // function userLogout() {
-  //   localStorage.removeItem("token");
-  //   // navigate("/");
-  // }
+  function userLogout() {
+    localStorage.removeItem("token");
+    navigate("/");
+  }
 
   return (
     <div className="bg-gray-100 px-5 py-7 md:py-5 dark:bg-gray-900">
@@ -63,10 +63,7 @@ function Navbar() {
             className="bg-transparent p-1 border-2 border-gray-600 rounded-lg dark:bg-slate-800"
           >
             <option value="username">{user?.firstName || "none"}</option>
-            <option
-              value="logout"
-              onClick={() => localStorage.removeItem("token")}
-            >
+            <option value="logout" onClick={userLogout}>
               logout
             </option>
           </select>
@@ -102,8 +99,10 @@ function Navbar() {
               id=""
               className="bg-transparent p-1 border-2 border-gray-600 rounded-lg"
             >
-              <option value="username">username</option>
-              <option value="logout">logout</option>
+              <option value="username">{user?.firstName || "none"}</option>
+              <option value="logout" onClick={userLogout}>
+                logout
+              </option>
             </select>
           </div>
         </div>

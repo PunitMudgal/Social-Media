@@ -11,8 +11,16 @@
   font-family: "Poppins", sans-serif;
 }
 
+body {
+  @apply bg-gray-300 dark:bg-gray-950;
+}
+
 a {
   text-decoration: unset;
+}
+
+hr {
+  @apply text-gray-900;
 }
 
 .bg_gradient {
@@ -35,6 +43,10 @@ a {
     rgba(9, 29, 85, 1) 0.2%,
     rgba(0, 0, 0, 1) 100.2%
   );
+}
+
+.addPost > span {
+  cursor: pointer;
 }
 
 /* ANIMATION BUTTON */

@@ -6,17 +6,16 @@ import { Toaster, toast } from "react-hot-toast";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Login } from "../helper/helper";
-import { useDispatch, useSelector } from "react-redux";
-import { setLogin } from "../store/authSlice";
+// import { useDispatch, useSelector } from "react-redux";
+// import { setUser } from "../store/authSlice";
 
 function Signin() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  // const user = useSelector((state) => state.auth.user);
+  // const dispatch = useDispatch();
 
   const { values, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: {
-      email: "nothing@gmail.com",
+      email: "ssmudgal01@gmail.com",
       password: "@password",
     },
     validate: loginVerify,
@@ -31,13 +30,12 @@ function Signin() {
         error: "Couldn't Login",
       });
       loginPromise.then((res) => {
-        let { user, token } = res.data;
-        // console.log(user, token);
-        dispatch(setLogin(user));
+        let { token } = res.data;
+        // dispatch(setLogin(user));
         localStorage.setItem("token", token);
       });
+      navigate("/home");
       action.resetForm();
-      // navigate("/home");
     },
   });
 

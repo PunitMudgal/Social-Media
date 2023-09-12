@@ -4,24 +4,24 @@ const initialState = {
   darkMode: true,
   user: null,
   posts: [],
+  data: { loading: false, apiData: undefined, status: null, serverError: null },
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setMode: (state, action) => {
-      // state.mode = state.mode === "light" ? "dark" : "light";
+    setMode: (state) => {
       state.darkMode = !state.darkMode;
     },
-    setLogin: (state, action) => {
+    setUser: (state, action) => {
       state.user = action.payload;
     },
     setFriends: (state, action) => {
       if (state.user) {
         state.user.friends = action.payload.friends;
       } else {
-        console.error("first friends non existent");
+        console.error("user friends non existent");
       }
     },
     setPosts: (state, action) => {
@@ -34,9 +34,15 @@ export const authSlice = createSlice({
       });
       state.posts = updatePosts;
     },
+    setData: (state, action) => {
+      state.data.apiData = action.payload.apiData;
+      state.data.loading = action.payload.loading;
+      state.data.serverError = action.payload.serverError;
+      state.data.status = action.payload.status;
+    },
   },
 });
 
-export const { setMode, setLogin, setFriends, setPosts, setPost } =
+export const { setMode, setUser, setFriends, setPosts, setPost, setData } =
   authSlice.actions;
 export default authSlice.reducer;
