@@ -79,7 +79,10 @@ function Navbar() {
         />
       </div>
       {menu && (
-        <div className="flex flex-col items-center justify-center absolute top-0 right-0 p-16 bg-slate-200 rounded-lg shadow-md">
+        <div
+          className="flex flex-col items-center justify-center absolute top-0 right-0 p-16 bg-slate-200 rounded-lg shadow-md"
+          onBlur={() => setMenu(false)}
+        >
           <CloseRoundedIcon
             onClick={() => setMenu(false)}
             className="absolute top-2 right-2"

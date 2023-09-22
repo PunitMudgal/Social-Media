@@ -9,6 +9,6 @@ router.get("/", Auth, getFeedPosts);
 router.get("/:userId/posts", Auth, getUserPosts);
 
 /** PATCH */
-router.patch(":/id/like", Auth, likePost);
+router.patch("/:id/like", Auth, likePost);
 
 export default router;

@@ -54,8 +54,41 @@ export default function Loading() {
   );
 }
 
-// <div
-//   className={`${
-//     dark ? "bg-slate-900" : "bg-gray-100"
-//   } w-[20%] p-5 rounded-xl h-[390px]`}
-// ></div>
+export const PostLoading = () => {
+  const dark = useSelector((state) => state.auth.darkMode);
+
+  return (
+    <>
+      <div className="flex gap-4 w-full items-center">
+        <Skeleton
+          sx={{ bgcolor: dark ? "#1C2833" : "#FDFEFE" }}
+          variant="circular"
+          width={60}
+          height={60}
+        />
+        <div className="flex flex-col gap-2">
+          <Skeleton
+            sx={{ bgcolor: dark ? "#1C2833" : "#FDFEFE" }}
+            variant="text"
+            height={15}
+            width={120}
+          >
+            {" "}
+          </Skeleton>
+          <Skeleton
+            variant="text"
+            sx={{ bgcolor: dark ? "#1C2833" : "#FDFEFE" }}
+            height={10}
+            width={70}
+          />
+        </div>
+      </div>
+      <Skeleton
+        sx={{ bgcolor: dark ? "#1C2833" : "#FDFEFE" }}
+        variant="rounded"
+        // width={60}
+        height={450}
+      />
+    </>
+  );
+};

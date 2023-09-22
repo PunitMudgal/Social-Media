@@ -1,71 +1,102 @@
 import React from "react";
-import avatar from "../../assets/profile.png";
-import { useSelector } from "react-redux";
-import InsertPhotoRoundedIcon from "@mui/icons-material/InsertPhotoRounded";
-import AttachFileRoundedIcon from "@mui/icons-material/AttachFileRounded";
-import KeyboardVoiceRoundedIcon from "@mui/icons-material/KeyboardVoiceRounded";
-import ArticleIcon from "@mui/icons-material/Article";
-// import {
-//   ArticleIcon,
-//   InsertPhotoRoundedIcon,
-//   AttachFileRoundedIcon,
-//   KeyboardVoiceRoundedIcon,
-// } from "@mui/icons-material";
 
-function PostWidget() {
-  const user = useSelector((state) => state.auth.user);
+import FmdGoodRoundedIcon from "@mui/icons-material/FmdGoodRounded";
+import PersonAddRoundedIcon from "@mui/icons-material/PersonAddRounded";
+import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
+import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
+import InsertCommentOutlinedIcon from "@mui/icons-material/InsertCommentOutlined";
+import NearMeOutlinedIcon from "@mui/icons-material/NearMeOutlined";
+import TurnedInNotRoundedIcon from "@mui/icons-material/TurnedInNotRounded";
+import TurnedInRoundedIcon from "@mui/icons-material/TurnedInRounded";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setPost } from "../../store/authSlice";
+import Friend from "../Friend";
+
+function PostWidget({
+  likes,
+  firstName,
+  lastName,
+  location,
+  comments,
+  createdAt,
+  postUserId,
+  _id: postId,
+  picturePath,
+  description,
+  userPicturePath,
+}) {
+  const token = localStorage.getItem("token");
+  const logedInUserId = useSelector((state) => state.auth.user?._id);
+  const isLiked = Boolean(likes[logedInUserId]);
+  const dispatch = useDispatch();
+
+  const likePost = async () => {
+    const response = await fetch(`http://localhost:5000/posts/${postId}/like`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: logedInUserId }),
+    });
+    const updatedPost = await response.json();
+    // console.log("inside likepost", updatedPost);
+    dispatch(setPost({ post: updatedPost }));
+  };
 
   return (
-    <div className="dark:bg-gray-900 bg-gray-100 p-5 w-full rounded-xl relative shadow-md ">
-      <form className="flex flex-col gap-4">
-        <div className="flex gap-4 items-center">
-          <img
-            src={user?.picturePath || avatar}
-            alt="profile"
-            className="w-12 object-cover h-12 rounded-full"
-          />
-          <input
-            type="text"
-            className="dark:bg-slate-700 bg-slate-300 rounded-3xl py-3 w-full px-6"
-            placeholder="What's on your mind today...!"
-          />
+    <div className="border p-2 rounded-lg bg-white dark:border-gray-800 dark:bg-slate-950 ">
+      <Friend
+        // friends={friends}
+        // userId={_id}
+        picturePath={userPicturePath}
+        location={location}
+        firstName={firstName}
+        lastName={lastName}
+        friendId={postUserId}
+        createdAt={createdAt}
+      />
+      {picturePath && (
+        <img
+          onDoubleClick={likePost}
+          className="rounded-md object-cover max-h-[30rem] flex justify-center"
+          src={`http://localhost:5000/assets/${picturePath}`}
+          alt="post"
+        />
+      )}
+
+      <div className="mx-3 my-2">
+        <div className="flex justify-between items-centers mb-2">
+          <div className="flex gap-2">
+            <span onClick={likePost}>
+              {isLiked ? (
+                <FavoriteRoundedIcon className="cursor-pointer" />
+              ) : (
+                <FavoriteBorderRoundedIcon className="cursor-pointer" />
+              )}
+            </span>
+            <p>
+              {" "}
+              <InsertCommentOutlinedIcon className="cursor-pointer" />
+              {comments?.map((comment) => (
+                <p>{comment}</p>
+              ))}
+            </p>
+            <p>
+              <NearMeOutlinedIcon className="cursor-pointer" />
+            </p>
+          </div>
+          <TurnedInNotRoundedIcon className="cursor-pointer" />
         </div>
-        <div className="flex w-full ">
-          <label
-            htmlFor="post"
-            className="border-2 border-dotted border-cyan-400 p-3 w-full h-14 cursor-pointer"
-          >
-            Tap to add image...
-          </label>
-          <input
-            id="post"
-            type="file"
-            placeholder="Add Image Here"
-            style={{ display: "none" }}
-          />
-        </div>
-        <hr />
-        <div className="addPost flex gap-3 text-sm justify-between items-center text-gray-800 dark:text-gray-300">
-          <span>
-            <InsertPhotoRoundedIcon /> Image{" "}
-          </span>
-          <span>
-            <ArticleIcon /> Clip{" "}
-          </span>
-          <span>
-            <AttachFileRoundedIcon /> Attachment{" "}
-          </span>
-          <span>
-            <KeyboardVoiceRoundedIcon /> Audio{" "}
-          </span>
-          <button
-            type="submit"
-            className="bg-green-600 text-white px-3 py-1 rounded-md"
-          >
-            Post
-          </button>
-        </div>
-      </form>
+        <p>{Object.keys(likes).length} Likes</p>
+        <p className="mb-2">{`${firstName}: ${description}.`}</p>
+        <input
+          type="text"
+          placeholder="Write a comment..."
+          className="bg-transparent focus:border-none p-2 w-[60%]"
+        />
+      </div>
     </div>
   );
 }

@@ -13,8 +13,6 @@ function EditUser({ setInfoEdit }) {
   const [file, setFile] = useState();
   const user = useSelector((state) => state.auth.user);
 
-  // const [{ isLoading, apiData, serverError }] = useFetch();
-
   const { values, handleBlur, handleSubmit, handleChange } = useFormik({
     initialValues: {
       firstName: user?.firstName || "",
@@ -56,9 +54,7 @@ function EditUser({ setInfoEdit }) {
         fontSize="medium"
         onClick={() => setInfoEdit(false)}
       />
-      {/* {isLoading ? (
-        <Loading />
-      ) : ( */}
+
       <form
         onSubmit={handleSubmit}
         className="flex items-center flex-col gap-3"
@@ -68,7 +64,7 @@ function EditUser({ setInfoEdit }) {
           className="flex max-w-fit justify-center items-center"
         >
           <img
-            src={user?.picturePath || file || avatar}
+            src={file || user?.picturePath || avatar}
             className={`${styles.profile_img} flex-1 shrink-0`}
             alt="avatar"
           />
@@ -120,21 +116,20 @@ function EditUser({ setInfoEdit }) {
             onChange={handleChange}
             onBlur={handleBlur}
           />
-          <Tooltip title="Email cannot be changed">
-            <input
-              className="p-2 dark:bg-slate-700 bg-gray-200"
-              placeholder="Email"
-              value={values.email}
-              name="email"
-              disabled
-            />
-          </Tooltip>
+          {/* <Tooltip title="Email cannot be changed"> */}
+          <input
+            className="p-2 dark:bg-slate-700 bg-gray-200"
+            placeholder="Email"
+            value={values.email}
+            name="email"
+            disabled
+          />
+          {/* </Tooltip> */}
         </div>
         <button type="submit" className="bg-green-500 rounded-lg p-2">
           Update
         </button>
       </form>
-      {/* )} */}
     </div>
   );
 }

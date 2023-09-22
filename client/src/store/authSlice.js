@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   darkMode: true,
   user: null,
+  // postsLoad: { loading: false, apiError: null },
   posts: [],
-  data: { loading: false, apiData: undefined, status: null, serverError: null },
 };
 
 export const authSlice = createSlice({
@@ -19,30 +19,27 @@ export const authSlice = createSlice({
     },
     setFriends: (state, action) => {
       if (state.user) {
-        state.user.friends = action.payload.friends;
+        state.user.friends = action.payload; //todo .friends
       } else {
         console.error("user friends non existent");
       }
     },
     setPosts: (state, action) => {
-      state.posts = action.payload.posts;
+      // state.postsLoad = { ...state.postsLoad, ...action.payload };
+      state.posts = action.payload;
+      // state.posts.loading = action.payload.loading;
+      // state.posts.apiError = action.payload.apiError;
     },
     setPost: (state, action) => {
-      const updatePosts = state.posts.map((post) => {
+      const updatePosts = state.posts?.map((post) => {
         if (post._id === action.payload.post._id) return action.payload.post;
         return post;
       });
       state.posts = updatePosts;
     },
-    setData: (state, action) => {
-      state.data.apiData = action.payload.apiData;
-      state.data.loading = action.payload.loading;
-      state.data.serverError = action.payload.serverError;
-      state.data.status = action.payload.status;
-    },
   },
 });
 
-export const { setMode, setUser, setFriends, setPosts, setPost, setData } =
+export const { setMode, setUser, setFriends, setPosts, setPost } =
   authSlice.actions;
 export default authSlice.reducer;

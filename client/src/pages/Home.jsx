@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import UserWidget from "../components/widgets/UserWidget";
 import EditUser from "../components/EditUser";
-import PostWidget from "../components/widgets/PostWidget";
+import UploadPhotoWidget from "../components/widgets/UploadPhotoWidget";
 import FriendListWidget from "../components/widgets/FriendListWidget";
 import useFetch from "../hook/fetchHook";
 import Loading from "../components/Loading";
+import PostsWidget from "../components/widgets/PostsWidget";
+import { useSelector } from "react-redux";
 
 function Home() {
-  const [{ isLoading, serverError }] = useFetch();
   const [infoEdit, setInfoEdit] = useState(false);
+  const { isLoading, serverError } = useFetch();
+  const user = useSelector((state) => state.auth.user);
 
-  const profileInfoEdit = async () => {
-    setInfoEdit(true);
-  };
-
+  // early return
   if (serverError)
     return (
       <div className="bg-rose-500 rounded-lx p-3 text-white">
@@ -27,10 +27,11 @@ function Home() {
       <div
         className={`m-[2%] ${infoEdit && "blur-sm"} flex justify-between gap-5`}
       >
-        <UserWidget profileInfoEdit={profileInfoEdit} />
+        <UserWidget profileInfoEdit={() => setInfoEdit(true)} {...user} />
 
-        <div className="flex-1">
-          <PostWidget />
+        <div className="flex flex-col flex-1 gap-4">
+          <UploadPhotoWidget />
+          <PostsWidget isProfile={false} />
         </div>
         <FriendListWidget />
       </div>

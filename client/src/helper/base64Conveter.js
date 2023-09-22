@@ -14,3 +14,17 @@ export default function convertToBase64(file) {
     };
   });
 }
+
+/** CONVERT IMAGE IN BINARY FORM */
+export function convertToBinary(file) {
+  let reader = new FileReader();
+  reader.onloadend = function () {
+    console.log("encoded base 64 file string: ", reader.result);
+
+    // for binary
+    let data = reader.result.split(",")[1];
+    let binaryBlob = atob(data);
+    console.log("Encoded Binary File String: ", binaryBlob);
+  };
+  reader.readAsArrayBuffer(file);
+}
