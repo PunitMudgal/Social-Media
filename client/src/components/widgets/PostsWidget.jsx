@@ -23,7 +23,6 @@ function PostsWidget({ isProfile, userId }) {
       const response = await axios.get("http://localhost:5000/posts", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log("getPosts called");
       setPostsRes({ loading: false });
       dispatch(setPosts(response.data));
     } catch (error) {
@@ -40,7 +39,6 @@ function PostsWidget({ isProfile, userId }) {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      // console.log("-- getUserPosts called --", response);
       setPostsRes({ loading: false });
       dispatch(setPosts(response.data));
     } catch (error) {

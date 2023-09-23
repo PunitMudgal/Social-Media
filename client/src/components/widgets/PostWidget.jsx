@@ -41,15 +41,12 @@ function PostWidget({
       body: JSON.stringify({ userId: logedInUserId }),
     });
     const updatedPost = await response.json();
-    // console.log("inside likepost", updatedPost);
     dispatch(setPost({ post: updatedPost }));
   };
 
   return (
     <div className="border p-2 rounded-lg bg-white dark:border-gray-800 dark:bg-slate-950 ">
       <Friend
-        // friends={friends}
-        // userId={_id}
         picturePath={userPicturePath}
         location={location}
         firstName={firstName}

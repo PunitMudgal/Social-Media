@@ -25,7 +25,9 @@ function Home() {
     <>
       {infoEdit && <EditUser setInfoEdit={setInfoEdit} />}
       <div
-        className={`m-[2%] ${infoEdit && "blur-sm"} flex justify-between gap-5`}
+        className={`m-[2%] ${
+          infoEdit && "blur-sm"
+        } flex justify-between gap-5 md:flex md:flex-col `}
       >
         <UserWidget profileInfoEdit={() => setInfoEdit(true)} {...user} />
 

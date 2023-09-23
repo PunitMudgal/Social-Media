@@ -80,7 +80,7 @@ function Navbar() {
       </div>
       {menu && (
         <div
-          className="flex flex-col items-center justify-center absolute top-0 right-0 p-16 bg-slate-200 rounded-lg shadow-md"
+          className="flex flex-col items-center justify-center absolute top-0 right-0 p-16 bg-slate-200 dark:bg-slate-950 rounded-lg shadow-md z-20"
           onBlur={() => setMenu(false)}
         >
           <CloseRoundedIcon

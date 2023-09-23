@@ -2,17 +2,11 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFriends } from "../../store/authSlice";
 import Friend from "../Friend";
-// import Fetch from "../../hook/fetchHook";
 import { getEmailFromToken } from "../../helper/helper";
 
 function FriendListWidget() {
-  // useEffect(() => {
-  //   Fetch();
-  // }, []);
-
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  // console.log(user.friends);
 
   const getFriends = async () => {
     const token = localStorage.getItem("token");
@@ -27,7 +21,6 @@ function FriendListWidget() {
       );
       const data = await response.json();
       dispatch(setFriends(data));
-      console.log("inside getFriends", data);
     } catch (error) {
       return Promise.reject();
     }
@@ -38,20 +31,13 @@ function FriendListWidget() {
   }, []);
 
   return (
-    <div className="dark:bg-gray-900 bg-gray-100 w-[20%] p-5 rounded-xl relative shadow-md max-h-fit ">
-      <div>
-        <h3>Friend List</h3>
-
-        {/* {user.friends.length === 0 ? (
-          <h3>User doesn't have any friend</h3>
-        ) : ( */}
-        {
-          user?.friends.map((friend) => (
-            <Friend key={friend._id} {...friend} friendId={friend._id} />
-          ))
-          // <h3>user has friends</h3>
-        }
-      </div>
+    <div className="dark:bg-gray-900 bg-gray-100 w-[20%] p-5 rounded-xl relative shadow-md max-h-fit md:w-full">
+      {/* <div> */}
+      <h3>Friend List</h3>
+      {user?.friends.map((friend) => (
+        <Friend key={friend._id} {...friend} friendId={friend._id} />
+      ))}
+      {/* </div> */}
     </div>
   );
 }
