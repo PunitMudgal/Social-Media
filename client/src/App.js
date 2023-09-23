@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
-import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
+import React from "react";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Register from "./pages/Register";
 import Signin from "./pages/Signin";
 import Profile from "./pages/Profile";
@@ -8,7 +9,6 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 import ProtectedRoute from "./helper/ProtectedRoute";
-import { useSelector } from "react-redux";
 
 function App() {
   const darkMode = useSelector((state) => state.auth.darkMode);

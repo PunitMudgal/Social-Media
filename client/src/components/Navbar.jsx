@@ -18,8 +18,9 @@ function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.auth.darkMode);
-  const user = useSelector((state) => state.auth.user);
-  // console.log(user, "user");
+  const userName = useSelector((state) => state.auth.user?.firstName);
+  const token = localStorage.getItem("token");
+
   function userLogout() {
     localStorage.removeItem("token");
     navigate("/");
@@ -33,14 +34,16 @@ function Navbar() {
             SOCIAL
           </Link>
         </div>
-        <div className="border-2 border-gray-600 flex items-center rounded-lg px-3 bg-gray-200 dark:bg-slate-800">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="bg-transparent focus:outline-none"
-          />
-          <SearchIcon className="cursor-pointer" />
-        </div>
+        {token && (
+          <div className="border-2 border-gray-600 flex items-center rounded-lg px-3 bg-gray-200 dark:bg-slate-800">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="bg-transparent focus:outline-none"
+            />
+            <SearchIcon className="cursor-pointer" />
+          </div>
+        )}
         <div className="flex gap-4 items-center">
           {darkMode ? (
             <LightModeRoundedIcon
@@ -62,8 +65,8 @@ function Navbar() {
             id=""
             className="bg-transparent p-1 border-2 border-gray-600 rounded-lg dark:bg-slate-800"
           >
-            <option value="username">{user?.firstName || "none"}</option>
-            <option value="logout" onClick={userLogout}>
+            <option value="username">{userName || "User"}</option>
+            <option disabled={!token} value="logout" onClick={userLogout}>
               logout
             </option>
           </select>
@@ -72,7 +75,9 @@ function Navbar() {
 
       {/* MOBILE VIEW */}
       <div className="hidden md:flex justify-between items-center">
-        <h2 className="logo text-xl">SOCIAL</h2>
+        <Link to="/home" className="logo">
+          SOCIAL
+        </Link>
         <MenuRoundedIcon
           className="cursor-pointer"
           onClick={() => setMenu(true)}
@@ -102,7 +107,7 @@ function Navbar() {
               id=""
               className="bg-transparent p-1 border-2 border-gray-600 rounded-lg"
             >
-              <option value="username">{user?.firstName || "none"}</option>
+              <option value="username">{userName || "User"}</option>
               <option value="logout" onClick={userLogout}>
                 logout
               </option>

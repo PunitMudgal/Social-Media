@@ -1,7 +1,5 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../hook/fetchHook";
-import { PostLoading } from "../components/Loading";
 import UserWidget from "../components/widgets/UserWidget";
 import UploadPhotoWidget from "../components/widgets/UploadPhotoWidget";
 import PostsWidget from "../components/widgets/PostsWidget";
@@ -10,7 +8,6 @@ import { useSelector } from "react-redux";
 function Profile() {
   const { userId } = useParams();
 
-  // const [{ isLoading, serverError }] =
   useFetch(userId);
   const user = useSelector((state) => state.auth.user);
 

@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// import { GetUserPosts, GetPosts } from "../../helper/helper";
-import PostWidget from "./PostWidget";
-import toast, { Toaster } from "react-hot-toast";
-import { setPosts } from "../../store/authSlice";
 import axios from "axios";
+import PostWidget from "./PostWidget";
 import { PostLoading } from "../Loading";
+import { setPosts } from "../../store/authSlice";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function PostsWidget({ isProfile, userId }) {
   const dispatch = useDispatch();
@@ -54,6 +52,7 @@ function PostsWidget({ isProfile, userId }) {
     }
   }, []);
 
+  // early return
   if (postsRes?.apiError)
     return (
       <div className="p-5 bg-rose-700 text-white">
@@ -63,7 +62,6 @@ function PostsWidget({ isProfile, userId }) {
   if (postsRes?.loading) return <PostLoading />;
   return (
     <>
-      <Toaster position="top-center" reverseOrder={false}></Toaster>
       {posts?.map((data) => (
         <PostWidget {...data} key={data._id} postUserId={data.userId} />
       ))}

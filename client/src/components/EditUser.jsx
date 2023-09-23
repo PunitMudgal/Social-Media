@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import Tooltip from "@mui/material/Tooltip";
 import avatar from "../assets/profile.png";
 import styles from "../styles/register.module.css";
 import { useFormik } from "formik";
@@ -47,7 +46,7 @@ function EditUser({ setInfoEdit }) {
   };
 
   return (
-    <div className="absolute top-[25%] left-[25%] w-[50%] bg-gray-50 dark:bg-slate-800 p-5 rounded-xl shadow-lg z-20">
+    <div className="absolute top-[25%] left-[25%] w-[50%] bg-gray-50 dark:bg-slate-800 p-5 rounded-xl shadow-lg z-20 md:w-full md:left-0 md:top-[13%]">
       <Toaster position="top-center" reverseOrder={false}></Toaster>
       <CloseRoundedIcon
         className="float-right cursor-pointer"

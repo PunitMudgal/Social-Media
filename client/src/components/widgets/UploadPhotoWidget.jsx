@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import InsertPhotoRoundedIcon from "@mui/icons-material/InsertPhotoRounded";
-import AttachFileRoundedIcon from "@mui/icons-material/AttachFileRounded";
-import KeyboardVoiceRoundedIcon from "@mui/icons-material/KeyboardVoiceRounded";
-import ArticleIcon from "@mui/icons-material/Article";
 import { postImage } from "../../helper/helper";
 import { setPosts } from "../../store/authSlice";
 import toast, { Toaster } from "react-hot-toast";
 import Avatar from "../Avatar";
 import avatar from "../../assets/profile.png";
+import {
+  AttachFileRounded,
+  InsertPhotoRounded,
+  KeyboardVoiceRounded,
+  Article,
+} from "@mui/icons-material";
 
 function UploadPhotoWidget() {
   const [post, setPost] = useState("");
   const [image, setImage] = useState(null);
-  // const [isImage, setIsImage] = useState(false);
+
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
@@ -70,16 +72,16 @@ function UploadPhotoWidget() {
         <hr />
         <div className="addPost flex gap-3 text-sm justify-between items-center text-gray-800 dark:text-gray-300">
           <span>
-            <InsertPhotoRoundedIcon /> Image{" "}
+            <InsertPhotoRounded /> Image{" "}
           </span>
           <span>
-            <ArticleIcon /> Clip{" "}
+            <Article /> Clip{" "}
           </span>
           <span>
-            <AttachFileRoundedIcon /> Attachment{" "}
+            <AttachFileRounded /> Attachment{" "}
           </span>
           <span>
-            <KeyboardVoiceRoundedIcon /> Audio{" "}
+            <KeyboardVoiceRounded /> Audio{" "}
           </span>
           <button
             disabled={!post}

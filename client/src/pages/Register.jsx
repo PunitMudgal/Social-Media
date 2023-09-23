@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useFormik } from "formik";
-import styles from "../styles/register.module.css";
-import avatar from "../assets/profile.png";
-// import avatar from "../assets/avatar_2.jpeg";
-import { Link, useNavigate } from "react-router-dom";
-import { registerValidation } from "../helper/validation.js";
-import { Toaster, toast } from "react-hot-toast";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import convertToBase64 from "../helper/base64Conveter.js";
+import { Toaster, toast } from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+
+import avatar from "../assets/profile.png";
 import { registerUser } from "../helper/helper";
+import styles from "../styles/register.module.css";
+import { registerValidation } from "../helper/validation.js";
+import convertToBase64 from "../helper/base64Conveter.js";
 
 function Register() {
   const [file, setFile] = useState();
@@ -25,6 +25,7 @@ function Register() {
       occupation: "Fullstack Developer",
       address: "Gurugram",
     },
+
     validate: registerValidation,
     validateOnBlur: false,
     validateOnChange: false,
@@ -47,7 +48,7 @@ function Register() {
     const base64 = await convertToBase64(e.target.files[0]);
     setFile(base64);
   };
-  // console.log("file", file);
+
   return (
     <div
       className={`${styles.full_registration} container flex flex-col h-full bg-gray-200`}

@@ -6,12 +6,9 @@ import { Toaster, toast } from "react-hot-toast";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Login } from "../helper/helper";
-// import { useDispatch, useSelector } from "react-redux";
-// import { setUser } from "../store/authSlice";
 
 function Signin() {
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
 
   const { values, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: {
@@ -33,8 +30,8 @@ function Signin() {
         let { token } = res.data;
         // dispatch(setLogin(user));
         localStorage.setItem("token", token);
+        navigate("/home");
       });
-      navigate("/home");
       action.resetForm();
     },
   });
@@ -45,7 +42,7 @@ function Signin() {
     >
       <Toaster position="top-center" reverseOrder={false}></Toaster>
       <div className="flex flex-col items-center min-w-full">
-        <h2 className="text-center text-4xl font-semibold mb-2 md:text-2xl text-gray-200">
+        <h2 className="text-center text-4xl font-semibold mb-2 md:text-3xl text-gray-200">
           SIGNIN HERE
         </h2>
         <div className={styles.form_div}>

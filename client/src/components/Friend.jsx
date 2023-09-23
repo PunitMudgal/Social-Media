@@ -4,8 +4,11 @@ import { setFriends } from "../store/authSlice";
 import Avatar from "./Avatar";
 import { Link } from "react-router-dom";
 import avatar from "../assets/profile.png";
-import FmdGoodRoundedIcon from "@mui/icons-material/FmdGoodRounded";
-import { PersonAddAlt1Rounded, PersonRemoveRounded } from "@mui/icons-material";
+import {
+  PersonAddAlt1Rounded,
+  PersonRemoveRounded,
+  FmdGoodRounded,
+} from "@mui/icons-material";
 
 function Friend({
   friendId,
@@ -17,7 +20,7 @@ function Friend({
 }) {
   // const navigate = useNavigate();
   const dispatch = useDispatch();
-  const friends = useSelector((state) => state.auth.user.friends);
+  const friends = useSelector((state) => state.auth.user?.friends);
   const { _id } = useSelector((state) => state.auth.user);
 
   const isFriend = friends?.find((friend) => friend._id === friendId);
@@ -53,7 +56,7 @@ function Friend({
             <span className="font-semibold">{`${firstName} ${lastName}`}</span>
           </Link>
           <span className="text-xs font-light dark:text-gray-400">
-            {location || "N/A"} <FmdGoodRoundedIcon fontSize="small" />
+            {location || "N/A"} <FmdGoodRounded fontSize="small" />
           </span>
         </div>
         <p className="text-gray-500 font-light text-xs self-start mt-1 ">

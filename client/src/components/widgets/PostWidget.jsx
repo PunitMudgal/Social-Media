@@ -1,14 +1,11 @@
 import React from "react";
-
-import FmdGoodRoundedIcon from "@mui/icons-material/FmdGoodRounded";
-import PersonAddRoundedIcon from "@mui/icons-material/PersonAddRounded";
-import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
-import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import InsertCommentOutlinedIcon from "@mui/icons-material/InsertCommentOutlined";
-import NearMeOutlinedIcon from "@mui/icons-material/NearMeOutlined";
-import TurnedInNotRoundedIcon from "@mui/icons-material/TurnedInNotRounded";
-import TurnedInRoundedIcon from "@mui/icons-material/TurnedInRounded";
-import axios from "axios";
+import {
+  FavoriteBorderRounded,
+  FavoriteRounded,
+  InsertCommentOutlined,
+  NearMeOutlined,
+  TurnedInNotRounded,
+} from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "../../store/authSlice";
 import Friend from "../Friend";
@@ -68,23 +65,23 @@ function PostWidget({
           <div className="flex gap-2">
             <span onClick={likePost}>
               {isLiked ? (
-                <FavoriteRoundedIcon className="cursor-pointer" />
+                <FavoriteRounded className="cursor-pointer" />
               ) : (
-                <FavoriteBorderRoundedIcon className="cursor-pointer" />
+                <FavoriteBorderRounded className="cursor-pointer" />
               )}
             </span>
             <p>
               {" "}
-              <InsertCommentOutlinedIcon className="cursor-pointer" />
+              <InsertCommentOutlined className="cursor-pointer" />
               {comments?.map((comment) => (
                 <p>{comment}</p>
               ))}
             </p>
             <p>
-              <NearMeOutlinedIcon className="cursor-pointer" />
+              <NearMeOutlined className="cursor-pointer" />
             </p>
           </div>
-          <TurnedInNotRoundedIcon className="cursor-pointer" />
+          <TurnedInNotRounded className="cursor-pointer" />
         </div>
         <p>{Object.keys(likes).length} Likes</p>
         <p className="mb-2">{`${firstName}: ${description}.`}</p>
