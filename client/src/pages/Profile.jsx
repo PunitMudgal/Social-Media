@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import useFetch from "../hook/fetchHook";
 import UserWidget from "../components/widgets/UserWidget";
-import UploadPhotoWidget from "../components/widgets/UploadPhotoWidget";
 import PostsWidget from "../components/widgets/PostsWidget";
-import { useSelector } from "react-redux";
+// import UploadPhotoWidget from "../components/widgets/UploadPhotoWidget";
 
 function Profile() {
   const { userId } = useParams();
