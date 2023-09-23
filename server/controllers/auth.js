@@ -61,7 +61,9 @@ export const register = async (req, res) => {
     newUser
       .save()
       .then(res.status(201).send({ msg: "user registerd successful" }))
-      .catch((error) => res.status(500).send({ err: "unable to save user" }));
+      .catch((error) =>
+        res.status(500).send({ err: "unable to save user", error })
+      );
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
