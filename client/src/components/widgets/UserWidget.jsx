@@ -54,7 +54,7 @@ function UserWidget({
         <img
           src={picturePath || avatar}
           alt="user"
-          className="rounded-full h-32 w-32 border-2 border-rose-400 p-[1px] object-cover"
+          className="rounded-full h-32 w-32 border-2 border-purple-500 p-[1px] object-cover"
         />
         <Link to={`/profile/${_id}`}>
           <h3 className="capitalize">{`${firstName} ${

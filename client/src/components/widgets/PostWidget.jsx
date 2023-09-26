@@ -9,13 +9,14 @@ import {
   DeleteRounded,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { setPost } from "../../store/authSlice";
+import { removeDeletedPost, setPost } from "../../store/authSlice";
 import Friend from "../Friend";
 import { addComment, deletePost, getComments } from "../../helper/helper";
 import toast from "react-hot-toast";
 import Comment from "../Comment";
 
 function PostWidget({
+  index,
   likes,
   firstName,
   lastName,
@@ -51,7 +52,7 @@ function PostWidget({
     dispatch(setPost({ post: updatedPost }));
   };
 
-  const handleAddComments = (e) => {
+  const handleAddComments = async (e) => {
     e.preventDefault();
     let formData = {
       postId,
@@ -60,8 +61,7 @@ function PostWidget({
       fullName: user?.firstName + " " + user?.lastName,
       picturePath: user?.picturePath,
     };
-    let addComPromise = addComment(formData);
-    handleGetComments();
+    let addComPromise = addComment(formData).then(() => handleGetComments());
 
     toast.promise(addComPromise, {
       success: "Comment Added",
@@ -77,7 +77,7 @@ function PostWidget({
 
   useEffect(() => {
     handleGetComments();
-  }, [showComments]);
+  }, []);
 
   const handleDeletePost = () => {
     const deletePromise = deletePost(postId);
@@ -86,6 +86,7 @@ function PostWidget({
       success: "Post Deleted",
       error: "couldn't delete Post",
     });
+    deletePromise.then(() => dispatch(removeDeletedPost(index)));
   };
 
   return (
@@ -146,6 +147,7 @@ function PostWidget({
                 key={comment._id}
                 {...comment}
                 logedInUserId={user?._id}
+                handleGetComments={handleGetComments}
               />
             ))}
           </div>
@@ -158,6 +160,7 @@ function PostWidget({
           className="flex justify-between"
         >
           <input
+            required
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             type="text"

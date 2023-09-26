@@ -65,8 +65,13 @@ function PostsWidget({ isProfile, userId }) {
       {posts?.length === 0 ? (
         <p>No post available!</p>
       ) : (
-        posts.map((data) => (
-          <PostWidget {...data} key={data._id} postUserId={data.userId} />
+        posts.map((data, index) => (
+          <PostWidget
+            key={data._id}
+            {...data}
+            postUserId={data.userId}
+            index={index}
+          />
         ))
       )}
     </>

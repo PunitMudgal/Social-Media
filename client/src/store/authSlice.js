@@ -30,6 +30,9 @@ export const authSlice = createSlice({
       // state.posts.loading = action.payload.loading;
       // state.posts.apiError = action.payload.apiError;
     },
+    removeDeletedPost: (state, action) => {
+      state.posts.splice(action.payload, 1);
+    },
     setPost: (state, action) => {
       const updatePosts = state.posts?.map((post) => {
         if (post._id === action.payload.post._id) return action.payload.post;
@@ -40,6 +43,12 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setMode, setUser, setFriends, setPosts, setPost } =
-  authSlice.actions;
+export const {
+  setMode,
+  setUser,
+  setFriends,
+  setPosts,
+  setPost,
+  removeDeletedPost,
+} = authSlice.actions;
 export default authSlice.reducer;

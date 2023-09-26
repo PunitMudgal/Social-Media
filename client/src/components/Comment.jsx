@@ -13,11 +13,13 @@ function Comment({
   _id,
   logedInUserId,
   userId,
+  handleGetComments,
 }) {
   const isSelfCommented = logedInUserId === userId;
 
-  const handleCommentDelete = () => {
-    const deletePromise = deleteComment(_id);
+  const handleCommentDelete = async () => {
+    const deletePromise = deleteComment(_id).then(() => handleGetComments());
+
     toast.promise(deletePromise, {
       success: "Comment deleted",
       error: "couldn't delete comment",

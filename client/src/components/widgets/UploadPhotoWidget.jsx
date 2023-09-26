@@ -18,8 +18,8 @@ function UploadPhotoWidget() {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
-  const handlePost = async () => {
-    // e.preventDefault();
+  const handlePost = async (e) => {
+    e.preventDefault();
     const formData = new FormData();
     formData.append("userId", user._id);
     formData.append("description", post);
@@ -86,7 +86,7 @@ function UploadPhotoWidget() {
             disabled={!post}
             onClick={handlePost}
             type="submit"
-            className="bg-green-600 text-white px-3 py-1 rounded-md"
+            className="bg-purple-600 border border-purple-800 text-white px-3 py-1 rounded-md"
           >
             Post
           </button>
