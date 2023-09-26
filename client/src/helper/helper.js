@@ -63,3 +63,51 @@ export async function postImage(data) {
     return { err: "couldn't post" };
   }
 }
+
+/** DELETE POST */
+export async function deletePost(postId) {
+  try {
+    const token = localStorage.getItem("token");
+    await axios.delete(`/posts/${postId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+/** ADD COMMENT */
+export async function addComment(formData) {
+  try {
+    const token = localStorage.getItem("token");
+
+    await axios.post(`/comment`, formData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return Promise.resolve();
+  } catch (error) {
+    return Promise.reject({ error: "Couldn't Update Profile!" });
+  }
+}
+
+/** GET COMMENTS */
+export async function getComments(postId) {
+  try {
+    const comments = await axios.get(`/comment/${postId}`);
+    return comments;
+  } catch (error) {
+    return Promise.reject({ errro: "couldn't get the comments" });
+  }
+}
+
+/** DELETE COMMENT */
+export async function deleteComment(commentId) {
+  try {
+    const token = localStorage.getItem("token");
+    await axios.delete(`/comment/${commentId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  } catch (error) {
+    return Promise.reject({ errro: "couldn't get the comments" });
+  }
+}

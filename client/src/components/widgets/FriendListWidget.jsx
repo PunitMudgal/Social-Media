@@ -33,10 +33,10 @@ function FriendListWidget() {
   return (
     <div className="dark:bg-gray-900 bg-gray-100 w-[20%] p-5 rounded-xl relative shadow-md max-h-fit md:w-full">
       <h3>Friend List</h3>
-      {Friends.length === 0 ? (
+      {Friends?.length === 0 ? (
         <p>User don't have any friends</p>
       ) : (
-        Friends.map((friend) => (
+        Friends?.map((friend) => (
           <Friend key={friend._id} {...friend} friendId={friend._id} />
         ))
       )}

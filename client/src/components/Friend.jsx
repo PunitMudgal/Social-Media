@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFriends } from "../store/authSlice";
 import Avatar from "./Avatar";
 import { Link } from "react-router-dom";
-import avatar from "../assets/profile.png";
 import {
   PersonAddAlt1Rounded,
   PersonRemoveRounded,
   FmdGoodRounded,
+  MoreVert,
 } from "@mui/icons-material";
 
 function Friend({
@@ -17,20 +17,21 @@ function Friend({
   lastName,
   location,
   createdAt,
+  deletePost,
 }) {
-  // const navigate = useNavigate();
+  const [menu, setMenu] = useState(false);
   const dispatch = useDispatch();
   const friends = useSelector((state) => state.auth.user?.friends);
-  const { _id } = useSelector((state) => state.auth.user);
+  const logedInUserId = useSelector((state) => state.auth.user?._id);
 
-  const isFriend = friends?.find((friend) => friend._id === friendId);
-  const isSelf = friendId === _id;
+  const isFriend = friends?.find((friend) => friend.logedInUserId === friendId);
+  const isSelf = friendId === logedInUserId;
 
   const patchFriend = async () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/users/${_id}/${friendId}`,
+        `http://localhost:5000/users/${logedInUserId}/${friendId}`,
         {
           method: "PATCH",
           headers: {
@@ -47,9 +48,9 @@ function Friend({
   };
 
   return (
-    <div className="flex text-sm items-center justify-between p-3">
+    <div className="flex text-sm items-center justify-between p-3 relative">
       <div className="flex items-center gap-3">
-        <Avatar picturePath={picturePath || avatar} />
+        <Avatar picturePath={picturePath} />
         <div className="flex flex-col">
           <Link to={`/profile/${friendId}`}>
             {" "}
@@ -60,10 +61,24 @@ function Friend({
           </span>
         </div>
         <p className="text-gray-500 font-light text-xs self-start mt-1 ">
-          {createdAt?.slice(0, 10)}
+          &#10625; {createdAt?.slice(0, 10)}
         </p>
       </div>
-      {!isSelf && (
+
+      {/* menu  */}
+      {isSelf ? (
+        <>
+          <MoreVert onClick={() => setMenu(!menu)} className="cursor-pointer" />
+          {menu && (
+            <div
+              onMouseLeave={() => setMenu(false)}
+              className="absolute flex flex-col top-10 right-6 p-2 rounded-md hover:bg-rose-500 dark:bg-gray-800 "
+            >
+              <button onClick={deletePost}>Delete</button>
+            </div>
+          )}
+        </>
+      ) : (
         <span
           onClick={patchFriend}
           className="rounded-full cursor-pointer p-1 hover:bg-gray-400 dark:hover:bg-gray-800"

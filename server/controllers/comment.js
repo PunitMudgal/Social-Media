@@ -4,8 +4,8 @@ import Post from "../models/Post.js";
 /** POST --> /comment/ */
 export async function addComment(req, res) {
   try {
-    // const { text, postId, userId } = req.body;
-    const newComment = new Comment({ ...req.body, userId: req.user.id });
+    const { comment } = req.body;
+    const newComment = new Comment({ ...req.body, text: comment });
 
     const savedComment = await newComment.save();
     res.status(200).send(savedComment);
@@ -14,9 +14,18 @@ export async function addComment(req, res) {
   }
 }
 
-/** POST --> /comment/reply/:commentId */
+/** PATCH --> /comment/reply/:commentId */
 export async function addReply(req, res) {
   try {
+    const { reply, userId } = req.body;
+    const { commentId } = req.params;
+    const comment = await Comment.findById(commentId);
+    if (!comment) return res.status(400).send({ err: "comment not found!" });
+    else {
+      comment.replies.set(userId, reply);
+      await comment.save();
+      res.status(200).send(comment.replies);
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -39,12 +48,12 @@ export async function deleteComment(req, res) {
   try {
     const { id } = req.params;
     const comment = await Comment.findById(id);
-    const post = await Post.findById(id);
+    // const post = await Post.findById(id);
 
-    if (!comment && !post)
+    if (!comment)
       return res.status(400).send({ error: "post or comment not found!" });
 
-    if (req.user.id === comment.userId || req.user.id === post.userId) {
+    if (req.user.userId === comment.userId) {
       await Comment.findByIdAndDelete(req.params.id);
       res.status(200).json("Comment Deleted Successfully");
     } else {

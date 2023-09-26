@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 function PostsWidget({ isProfile, userId }) {
   const dispatch = useDispatch();
 
-  const posts = useSelector((state) => state.auth.posts);
+  const posts = useSelector((state) => state.auth?.posts);
   const token = localStorage.getItem("token");
   const [postsRes, setPostsRes] = useState({
     loading: false,
@@ -52,7 +52,7 @@ function PostsWidget({ isProfile, userId }) {
     }
   }, []);
 
-  // early return
+  // early returns
   if (postsRes?.apiError)
     return (
       <div className="p-5 bg-rose-700 text-white">
@@ -62,9 +62,13 @@ function PostsWidget({ isProfile, userId }) {
   if (postsRes?.loading) return <PostLoading />;
   return (
     <>
-      {posts?.map((data) => (
-        <PostWidget {...data} key={data._id} postUserId={data.userId} />
-      ))}
+      {posts?.length === 0 ? (
+        <p>No post available!</p>
+      ) : (
+        posts.map((data) => (
+          <PostWidget {...data} key={data._id} postUserId={data.userId} />
+        ))
+      )}
     </>
   );
 }

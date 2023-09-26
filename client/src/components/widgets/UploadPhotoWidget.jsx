@@ -4,7 +4,6 @@ import { postImage } from "../../helper/helper";
 import { setPosts } from "../../store/authSlice";
 import toast, { Toaster } from "react-hot-toast";
 import Avatar from "../Avatar";
-import avatar from "../../assets/profile.png";
 import {
   AttachFileRounded,
   InsertPhotoRounded,
@@ -45,7 +44,7 @@ function UploadPhotoWidget() {
 
       <div className="flex flex-col gap-4">
         <div className="flex gap-4 items-center">
-          <Avatar picturePath={user?.picturePath || avatar} />
+          <Avatar picturePath={user?.picturePath} />
           <input
             type="text"
             className="dark:bg-slate-700 bg-slate-300 rounded-3xl py-3 w-full px-6"

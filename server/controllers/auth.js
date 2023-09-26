@@ -16,17 +16,7 @@ export async function verifyUser(req, res, next) {
   }
 }
 
-/* REGISTER USER 
-{
-  "firstName": "punit",
-  "lastName": "sharma",
-  "password": "sdfasdfas",
-  "email": "ssmudagkfsdk@gamil.com",
-  "occupation": "sdfasdfe",
-  "picturePath": "something/png",
-  "friend": "no one",
-  "location": "no one knows"
-} */
+/* REGISTER USER */
 export const register = async (req, res) => {
   try {
     const {

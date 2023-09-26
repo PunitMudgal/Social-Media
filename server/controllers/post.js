@@ -1,5 +1,6 @@
 import Post from "../models/Post.js";
 import User from "../models/User.js";
+import Comment from "../models/Comment.js";
 
 /** POST --> /posts */
 export const createPost = async (req, res) => {
@@ -70,5 +71,24 @@ export const likePost = async (req, res) => {
     res.status(200).json(updatedPost);
   } catch (error) {
     return res.status(404).json({ msg: error.message });
+  }
+};
+
+/** DELETE ->  /posts/:postId */
+export const deletePost = async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const post = await Post.findById(postId);
+    if (!post) res.status(404).send({ err: "post not found!" });
+
+    if (req.user.userId === post.userId) {
+      await Post.findByIdAndDelete(postId);
+      await Comment.deleteMany({ postId });
+      res.status(200).json("post deleted successfully");
+    } else {
+      res.status(403).send({ err: "you cannot delete someone else's post" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };

@@ -10,7 +10,7 @@ const router = express.Router();
 
 /** /comment */
 router.post("/", Auth, addComment);
-router.post("/reply/:commentId", Auth, addReply);
+router.patch("/reply/:commentId", Auth, addReply);
 router.get("/:postId", getComments);
 router.delete("/:id", Auth, deleteComment);
 
