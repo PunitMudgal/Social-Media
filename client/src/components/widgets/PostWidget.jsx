@@ -165,7 +165,7 @@ function PostWidget({
             onChange={(e) => setComment(e.target.value)}
             type="text"
             placeholder="Write a comment..."
-            className="bg-transparent focus:none p-2 w-[60%] focus:border-0"
+            className="bg-transparent focus:none p-2 w-[60%] focus:outline-none"
           />
           <button
             disabled={!comment}

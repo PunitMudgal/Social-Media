@@ -1,20 +1,28 @@
-import React, { useState } from "react";
-import SearchIcon from "@mui/icons-material/Search";
-import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
-import HelpCenterRoundedIcon from "@mui/icons-material/HelpCenterRounded";
-import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
-import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import NightlightRoundedIcon from "@mui/icons-material/NightlightRounded";
+import React, { useEffect, useState } from "react";
+import {
+  NightlightRounded,
+  CloseRounded,
+  MenuRounded,
+  LightModeRounded,
+  NotificationsRounded,
+  HelpCenterRounded,
+  MessageRounded,
+  Search,
+} from "@mui/icons-material";
 import "../styles/navbar.css";
 
 import { setMode } from "../store/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { searchUsers } from "../helper/helper";
+import Friend from "./Friend";
 
 function Navbar() {
   const [menu, setMenu] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [searchMenu, setSearchMenu] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.auth.darkMode);
@@ -26,39 +34,86 @@ function Navbar() {
     navigate("/");
   }
 
+  const submitSearch = (e) => {
+    if (searchText) {
+      // e.preventDefault();
+      console.log("API CALL");
+      const searchPromise = searchUsers(searchText.toLowerCase());
+      searchPromise.then((user) => setSearchResults(user.data));
+    }
+  };
+
+  useEffect(() => {
+    console.log("USEEFFECT CALLED");
+    if (searchMenu) {
+      const timer = setTimeout(() => submitSearch(), 300);
+
+      // cleanup function
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [searchText]);
+
   return (
-    <div className="bg-gray-100 px-5 py-7 md:py-5 dark:bg-gray-900">
+    <div className="bg-gray-100 px-5 py-7 md:py-5 dark:bg-gray-900 relative">
       <div className="flex justify-around md:hidden">
         <div>
           <Link to="/home" className="logo">
             SOCIAL
           </Link>
         </div>
+
+        {/* search bar  */}
         {token && (
-          <div className="border-2 border-gray-600 flex items-center rounded-lg px-3 bg-gray-200 dark:bg-slate-800">
+          <div className="border-2 border-gray-600 flex items-center rounded-lg px-3 bg-gray-200 dark:bg-slate-800 ">
             <input
+              onChange={(e) => setSearchText(e.target.value)}
+              value={searchText}
               type="text"
               placeholder="Search..."
-              className="bg-transparent focus:outline-none"
+              className="bg-transparent focus:outline-none focus:w-96 "
+              onFocus={() => setSearchMenu(true)}
+              onBlur={() => setSearchMenu(false)}
             />
-            <SearchIcon className="cursor-pointer" />
+            <Search
+              type="submit"
+              onClick={submitSearch}
+              className="cursor-pointer"
+            />
           </div>
         )}
+        {searchMenu && (
+          <div className="absolute top-16 left-[31.8%] rounded-b-md p-2 dark:bg-slate-800 bg-gray-200 w-[26.6rem] z-40 ">
+            {searchResults.map((user) => (
+              <div className="dark:hover:bg-blue-950 ">
+                {" "}
+                <Friend
+                  key={user._id}
+                  friendId={user._id}
+                  {...user}
+                  searchValue
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className="flex gap-4 items-center">
           {darkMode ? (
-            <LightModeRoundedIcon
+            <LightModeRounded
               onClick={() => dispatch(setMode())}
               className="cursor-pointer rotate-center"
             />
           ) : (
-            <NightlightRoundedIcon
+            <NightlightRounded
               onClick={() => dispatch(setMode())}
               className="cursor-pointer rotate-center-rev"
             />
           )}
-          <MessageRoundedIcon className="cursor-pointer" />
-          <HelpCenterRoundedIcon className="cursor-pointer" />
-          <NotificationsRoundedIcon className="cursor-pointer" />
+          <MessageRounded className="cursor-pointer" />
+          <HelpCenterRounded className="cursor-pointer" />
+          <NotificationsRounded className="cursor-pointer" />
 
           <select
             name="user"
@@ -78,29 +133,26 @@ function Navbar() {
         <Link to="/home" className="logo">
           SOCIAL
         </Link>
-        <MenuRoundedIcon
-          className="cursor-pointer"
-          onClick={() => setMenu(true)}
-        />
+        <MenuRounded className="cursor-pointer" onClick={() => setMenu(true)} />
       </div>
       {menu && (
         <div
           className="flex flex-col items-center justify-center absolute top-0 right-0 p-16 bg-slate-200 dark:bg-slate-950 rounded-lg shadow-md z-20"
           onBlur={() => setMenu(false)}
         >
-          <CloseRoundedIcon
+          <CloseRounded
             onClick={() => setMenu(false)}
             className="absolute top-2 right-2"
           />
           <div className="flex flex-col gap-8 items-center">
             {darkMode ? (
-              <LightModeRoundedIcon onClick={() => dispatch(setMode(true))} />
+              <LightModeRounded onClick={() => dispatch(setMode(true))} />
             ) : (
-              <NightlightRoundedIcon onClick={() => dispatch(setMode(false))} />
+              <NightlightRounded onClick={() => dispatch(setMode(false))} />
             )}
-            <MessageRoundedIcon />
-            <HelpCenterRoundedIcon />
-            <NotificationsRoundedIcon />
+            <MessageRounded />
+            <HelpCenterRounded />
+            <NotificationsRounded />
 
             <select
               name="user"

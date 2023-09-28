@@ -11,6 +11,7 @@ import {
 } from "@mui/icons-material";
 
 function Friend({
+  searchValue,
   friendId,
   picturePath,
   firstName,
@@ -18,6 +19,7 @@ function Friend({
   location,
   createdAt,
   deletePost,
+  occupation,
 }) {
   const [menu, setMenu] = useState(false);
   const dispatch = useDispatch();
@@ -54,19 +56,27 @@ function Friend({
         <div className="flex flex-col">
           <Link to={`/profile/${friendId}`}>
             {" "}
-            <span className="font-semibold">{`${firstName} ${lastName}`}</span>
+            <span className="font-semibold capitalize">{`${firstName} ${lastName}`}</span>
           </Link>
           <span className="text-xs font-light dark:text-gray-400">
-            {location || "N/A"} <FmdGoodRounded fontSize="small" />
+            {!searchValue ? (
+              <>
+                {location || "N/A"} <FmdGoodRounded fontSize="small" />{" "}
+              </>
+            ) : (
+              occupation
+            )}
           </span>
         </div>
-        <p className="text-gray-500 font-light text-xs self-start mt-1 ">
-          &#10625; {createdAt?.slice(0, 10)}
-        </p>
+        {!searchValue && (
+          <p className="text-gray-500 font-light text-xs self-start mt-1 ">
+            &#10625; {createdAt?.slice(0, 10)}
+          </p>
+        )}
       </div>
 
       {/* menu  */}
-      {isSelf ? (
+      {isSelf && !searchValue ? (
         <>
           <MoreVert onClick={() => setMenu(!menu)} className="cursor-pointer" />
           {menu && (

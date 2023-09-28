@@ -111,6 +111,7 @@ function Register() {
               label="Email"
               value={values.email}
               name="email"
+              className="lowercase"
               onChange={handleChange}
               onBlur={handleBlur}
               variant="outlined"

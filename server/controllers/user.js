@@ -20,17 +20,24 @@ export const getUser = async (req, res) => {
   }
 };
 
-// GET ALL USERS /getUsers
-export const getAllUsers = async (req, res) => {
+//  GET users/search/:name
+export const searchUsers = async (req, res) => {
   try {
-    const users = await User.find();
-    res.status(200).send(users);
+    const {name} = req.params
+    const users = await User.find({
+      "$or": [
+        { "firstName": { $regex: name } },
+        { "email": { $regex: name } }
+      ],
+    });
+    if (!users) return res.status(404).send({ err: "user not found!" });
+    return res.status(201).send(users);
   } catch (error) {
-    return res.status(404).send({ msg: error.message });
+    return res.status(500).send({ msg: error.message });
   }
 };
 
-/** GET    users/:id/friends */
+/** GET  users/:id/friends */
 export const getUserFriends = async (req, res) => {
   try {
     const { id } = req.params;

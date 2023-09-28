@@ -50,6 +50,7 @@ function UserWidget({
         </>
       )}
 
+      {/* user image */}
       <div className="flex flex-col items-center mb-3">
         <img
           src={picturePath || avatar}

@@ -30,7 +30,7 @@ function Comment({
     <div className="flex justify-between items-center my-1">
       <div className="flex gap-1">
         <SmallAvatar picturePath={picturePath || avatar} />
-        <p className="font-semibold mr-2">
+        <p className="font-semibold mr-2 capitalize">
           {fullName}{" "}
           {isSelfCommented && (
             <span className="text-gray-500 text-[10px]">(you)</span>

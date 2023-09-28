@@ -16,7 +16,7 @@ import userRoutes from "./router/user.js";
 import postRoutes from "./router/post.js";
 import commentRoutes from "./router/comment.js";
 import Auth from "./middleware/auth.js";
-// import User from "./models/User.js";
+import User from "./models/User.js";
 // import Post from "./models/Post.js";
 // import { users, posts } from "./data/index.js";
 
@@ -54,6 +54,10 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 app.use("/comment", commentRoutes);
+// app.get("/search", async (req, res) => {
+//   let data = await User.find();
+//   res.send(data);
+// });
 // MONGOOSE SETUP
 const port = process.env.PORT || 6001;
 

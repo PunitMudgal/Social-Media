@@ -1,12 +1,12 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { setPosts } from "../store/authSlice";
-import { useDispatch } from "react-redux";
+
 // axios.defaults.baseURL = process.env.BACKEND_SERVER_URL;
 axios.defaults.baseURL = "http://localhost:5000";
+const token = localStorage.getItem("token");
 
 export async function getEmailFromToken() {
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
   if (!token) return Promise.reject("Token Not Found!");
   let decode = await jwt_decode(token);
   return decode;
@@ -40,7 +40,7 @@ export async function Login({ email, password }) {
 /** UPDATE PROFILE */
 export async function updateProfile(userData) {
   try {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
     const data = await axios.patch("/users/updateUser", userData, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -53,7 +53,7 @@ export async function updateProfile(userData) {
 /** UPLOAD IMAGE */
 export async function postImage(data) {
   try {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
     const post = await axios.post("/posts", data, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -67,7 +67,7 @@ export async function postImage(data) {
 /** DELETE POST */
 export async function deletePost(postId) {
   try {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
     await axios.delete(`/posts/${postId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -76,10 +76,23 @@ export async function deletePost(postId) {
   }
 }
 
+/** SEARCH USER */
+export async function searchUsers(inputValue) {
+  try { 
+    // const lastName = searchInput.slice(" ")[1];
+    const searchedUser = await axios.get(`users/search/${inputValue}`);
+    return searchedUser;
+  } catch (error) {
+    Promise.reject(error);
+  }
+}
+
+
+//* COMMENTS 
 /** ADD COMMENT */
 export async function addComment(formData) {
   try {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
 
     await axios.post(`/comment`, formData, {
       headers: { Authorization: `Bearer ${token}` },
@@ -103,7 +116,7 @@ export async function getComments(postId) {
 /** DELETE COMMENT */
 export async function deleteComment(commentId) {
   try {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
     await axios.delete(`/comment/${commentId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
