@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postImage } from "../../helper/helper";
+import { uploadImage } from "../../helper/helper";
 import { setPosts } from "../../store/authSlice";
 import toast, { Toaster } from "react-hot-toast";
 import Avatar from "../Avatar";
@@ -19,7 +19,6 @@ function UploadPhotoWidget() {
   const dispatch = useDispatch();
 
   const handlePost = async (e) => {
-    e.preventDefault();
     const formData = new FormData();
     formData.append("userId", user._id);
     formData.append("description", post);
@@ -27,13 +26,14 @@ function UploadPhotoWidget() {
       formData.append("picture", image);
       formData.append("picturePath", image.name);
     }
-    const responsePromise = postImage(formData);
+    const responsePromise = uploadImage(formData);
+
+    responsePromise.then((post) => dispatch(setPosts(post.data)));
     toast.promise(responsePromise, {
       loading: "uploading...",
       success: "uploaded successfully",
       error: "couldn't post",
     });
-    responsePromise.then(dispatch(setPosts({ responsePromise })));
     setPost("");
     setImage(null);
   };

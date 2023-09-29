@@ -65,7 +65,7 @@ function PostsWidget({ isProfile, userId }) {
   if (postsRes?.loading) return <PostLoading />;
   return (
     <>
-      {posts?.length === 0 ? (
+      {!posts ? (
         <p>No post available!</p>
       ) : (
         posts?.map((data, index) => (

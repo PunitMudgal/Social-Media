@@ -36,7 +36,7 @@ function FriendListWidget() {
       {Friends?.length === 0 ? (
         <p>User don't have any friends</p>
       ) : (
-        Friends?.map((friend) => (
+        Friends.map((friend) => (
           <Friend key={friend._id} {...friend} friendId={friend._id} />
         ))
       )}

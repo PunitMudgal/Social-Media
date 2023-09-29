@@ -138,11 +138,55 @@ function Navbar() {
         <Link to="/home" className="logo">
           SOCIAL
         </Link>
+
+        {/* SEARCH BAR (MOBILE) */}
+        {token && (
+          <div className="border-2 border-gray-600 flex items-center rounded-lg px-3 bg-gray-200 dark:bg-slate-800 ">
+            <input
+              onChange={(e) => setSearchText(e.target.value)}
+              value={searchText}
+              type="text"
+              placeholder="Search..."
+              className="bg-transparent focus:outline-none focus:w-40 w-40 "
+              onFocus={() => setSearchMenu(true)}
+              onBlur={() => setSearchMenu(false)}
+            />
+            <Search
+              type="submit"
+              onClick={submitSearch}
+              className="cursor-pointer"
+            />
+          </div>
+        )}
+
+        {/* SEARCH MENU  */}
+        {searchMenu && (
+          <div className="absolute top-16 left-[31.95%] rounded-b-md p-2 dark:bg-slate-800 bg-gray-100 w-[26.6rem] z-30 border-x border-b border-gray-400 shadow-lg md:top-[3.3rem] md:w-[12.7rem] md:left-[37.2%] md:p-1">
+            {searchResults.map((user) => (
+              <div className="rounded-md hover:border border-teal-500">
+                {" "}
+                <Friend
+                  key={user._id}
+                  friendId={user._id}
+                  {...user}
+                  searchValue
+                />
+              </div>
+            ))}
+            {searchResults.length === 0 && (
+              <p className="text-rose-500">
+                No User Found with the name "{searchText}"!
+              </p>
+            )}
+          </div>
+        )}
         <MenuRounded className="cursor-pointer" onClick={() => setMenu(true)} />
       </div>
+
+      {/* MAIN MENU  */}
       {menu && (
         <div
-          className="flex flex-col items-center justify-center absolute top-0 right-0 p-16 bg-slate-200 dark:bg-slate-950 rounded-lg shadow-md z-20"
+          className="flex flex-col items-center justify-center absolute top-0 right-0 p-16 bg-slate-200 dark:bg-slate-950 rounded-lg shadow-md z-40"
           onBlur={() => setMenu(false)}
         >
           <CloseRounded

@@ -131,7 +131,9 @@ function PostWidget({
           <TurnedInNotRounded className="cursor-pointer" />
         </div>
         <p>{Object.keys(likes).length} Likes</p>
-        <p className="mb-2">{`${firstName}: ${description}.`}</p>
+        {description && (
+          <p className="mb-2">{`${firstName}: ${description}.`}</p>
+        )}
 
         {!showComments && (
           <p

@@ -50,14 +50,13 @@ export async function updateProfile(userData) {
 }
 
 /** UPLOAD IMAGE */
-export async function postImage(data) {
+export async function uploadImage(data) {
   try {
     // const token = localStorage.getItem("token");
     const post = await axios.post("/posts", data, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    const result = post.json();
-    return result;
+    return post;
   } catch (error) {
     return { err: "couldn't post" };
   }
