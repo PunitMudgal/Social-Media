@@ -18,9 +18,12 @@ function PostsWidget({ isProfile, userId }) {
   const getPosts = async () => {
     try {
       setPostsRes({ loading: true });
-      const response = await axios.get("http://localhost:5000/posts", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_SERVER_URL}/posts`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setPostsRes({ loading: false });
       dispatch(setPosts(response.data));
     } catch (error) {
@@ -32,7 +35,7 @@ function PostsWidget({ isProfile, userId }) {
     try {
       setPostsRes({ loading: true });
       const response = await axios.get(
-        `http://localhost:5000/posts/${userId}/posts`,
+        `${process.env.REACT_APP_BACKEND_SERVER_URL}/posts/${userId}/posts`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -65,7 +68,7 @@ function PostsWidget({ isProfile, userId }) {
       {posts?.length === 0 ? (
         <p>No post available!</p>
       ) : (
-        posts.map((data, index) => (
+        posts?.map((data, index) => (
           <PostWidget
             key={data._id}
             {...data}

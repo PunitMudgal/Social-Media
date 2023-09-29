@@ -40,14 +40,17 @@ function PostWidget({
   const dispatch = useDispatch();
 
   const likePost = async () => {
-    const response = await fetch(`http://localhost:5000/posts/${postId}/like`, {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId: user?._id }),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_SERVER_URL}/posts/${postId}/like`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: user?._id }),
+      }
+    );
     const updatedPost = await response.json();
     dispatch(setPost({ post: updatedPost }));
   };
@@ -104,7 +107,7 @@ function PostWidget({
         <img
           onDoubleClick={likePost}
           className="rounded-md object-cover max-h-[30rem] flex justify-center"
-          src={`http://localhost:5000/assets/${picturePath}`}
+          src={`${process.env.REACT_APP_BACKEND_SERVER_URL}/assets/${picturePath}`}
           alt="post"
         />
       )}

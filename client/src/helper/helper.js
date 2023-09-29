@@ -1,8 +1,7 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
-// axios.defaults.baseURL = process.env.BACKEND_SERVER_URL;
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = process.env.REACT_APP_BACKEND_SERVER_URL;
 const token = localStorage.getItem("token");
 
 export async function getEmailFromToken() {
@@ -78,7 +77,7 @@ export async function deletePost(postId) {
 
 /** SEARCH USER */
 export async function searchUsers(inputValue) {
-  try { 
+  try {
     // const lastName = searchInput.slice(" ")[1];
     const searchedUser = await axios.get(`users/search/${inputValue}`);
     return searchedUser;
@@ -87,8 +86,7 @@ export async function searchUsers(inputValue) {
   }
 }
 
-
-//* COMMENTS 
+//* COMMENTS
 /** ADD COMMENT */
 export async function addComment(formData) {
   try {

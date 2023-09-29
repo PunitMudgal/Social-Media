@@ -4,8 +4,7 @@ import { getEmailFromToken } from "../helper/helper";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/authSlice";
 
-// axios.defaults.baseURL = process.env.BACKEND_SERVER_URL;
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = process.env.REACT_APP_BACKEND_SERVER_URL;
 
 /** CUSTOM HOOK TO FETCH USER DETAILS */
 export default async function useFetch(query) {

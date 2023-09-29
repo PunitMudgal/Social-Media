@@ -84,9 +84,9 @@ function Navbar() {
           </div>
         )}
         {searchMenu && (
-          <div className="absolute top-16 left-[31.8%] rounded-b-md p-2 dark:bg-slate-800 bg-gray-200 w-[26.6rem] z-40 ">
+          <div className="absolute top-16 left-[31.95%] rounded-b-md p-2 dark:bg-slate-800 bg-gray-100 w-[26.6rem] z-40 border-x border-b border-gray-400 shadow-lg ">
             {searchResults.map((user) => (
-              <div className="dark:hover:bg-blue-950 ">
+              <div className="rounded-md hover:border border-teal-500">
                 {" "}
                 <Friend
                   key={user._id}
@@ -96,6 +96,11 @@ function Navbar() {
                 />
               </div>
             ))}
+            {searchResults.length === 0 && (
+              <p className="text-rose-500">
+                No User Found with the name "{searchText}"!
+              </p>
+            )}
           </div>
         )}
 

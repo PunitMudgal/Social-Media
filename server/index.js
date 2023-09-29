@@ -16,7 +16,7 @@ import userRoutes from "./router/user.js";
 import postRoutes from "./router/post.js";
 import commentRoutes from "./router/comment.js";
 import Auth from "./middleware/auth.js";
-import User from "./models/User.js";
+// import User from "./models/User.js";
 // import Post from "./models/Post.js";
 // import { users, posts } from "./data/index.js";
 
@@ -64,7 +64,7 @@ const port = process.env.PORT || 6001;
 connectDb().then(() => {
   try {
     app.listen(port, () => {
-      console.log(`server started at http://localhost:${port}`);
+      console.log(`server started at ${process.env.BACKEND_SERVER_URL}`);
 
       // User.insertMany(users);
       // Post.insertMany(posts);

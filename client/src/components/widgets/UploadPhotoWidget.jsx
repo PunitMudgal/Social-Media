@@ -50,6 +50,7 @@ function UploadPhotoWidget() {
             className="dark:bg-slate-700 bg-slate-300 rounded-3xl py-3 w-full px-6"
             placeholder="What's on your mind today..."
             value={post}
+            required
             onChange={(e) => setPost(e.target.value)}
           />
         </div>

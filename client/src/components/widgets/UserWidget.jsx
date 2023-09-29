@@ -1,26 +1,27 @@
-import React from "react";
 import avatar from "../../assets/profile.png";
 import { Link, useNavigate } from "react-router-dom";
-import WorkRoundedIcon from "@mui/icons-material/WorkRounded";
-import FmdGoodRoundedIcon from "@mui/icons-material/FmdGoodRounded";
-import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import EditNoteRoundedIcon from "@mui/icons-material/EditNoteRounded";
-import { useSelector } from "react-redux";
+
+import {
+  EditNoteRounded,
+  LogoutRounded,
+  FmdGoodRounded,
+  WorkRounded,
+} from "@mui/icons-material";
 import Tooltip from "@mui/material/Tooltip";
 
 function UserWidget({
-  profileInfoEdit,
-  friendProfile,
-  picturePath,
-  firstName,
-  lastName,
-  email,
   _id,
+  email,
   friends,
   location,
+  lastName,
+  firstName,
   occupation,
+  picturePath,
   impressions,
   viewedProfile,
+  friendProfile,
+  profileInfoEdit,
 }) {
   const navigate = useNavigate();
 
@@ -33,19 +34,21 @@ function UserWidget({
     <div className="dark:bg-gray-900 bg-gray-100 w-[20%] p-5 rounded-xl relative shadow-md md:w-full">
       {!friendProfile && (
         <>
-          {" "}
           <Tooltip title="Edit Info" placement="top">
-            {" "}
-            <EditNoteRoundedIcon
-              className="float-left cursor-pointer"
-              onClick={profileInfoEdit}
-            />
+            <>
+              <EditNoteRounded
+                className="float-left cursor-pointer"
+                onClick={profileInfoEdit}
+              />
+            </>
           </Tooltip>
           <Tooltip title="Logout">
-            <LogoutRoundedIcon
-              onClick={handleLogout}
-              className="float-right cursor-pointer"
-            />
+            <>
+              <LogoutRounded
+                onClick={handleLogout}
+                className="float-right cursor-pointer"
+              />
+            </>
           </Tooltip>{" "}
         </>
       )}
@@ -70,10 +73,10 @@ function UserWidget({
 
       <div className="flex flex-col gap-2 my-3 text-gray-500 text-sm">
         <p>
-          <FmdGoodRoundedIcon fontSize="medium" /> {location || "Not Specified"}
+          <FmdGoodRounded fontSize="medium" /> {location || "Not Specified"}
         </p>
         <p>
-          <WorkRoundedIcon /> {occupation || "Not Specified"}
+          <WorkRounded /> {occupation || "Not Specified"}
         </p>
       </div>
       <hr />

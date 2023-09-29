@@ -13,7 +13,7 @@ function FriendListWidget() {
     const { userId } = await getEmailFromToken();
     try {
       const response = await fetch(
-        `http://localhost:5000/users/${userId}/friends`,
+        `${process.env.REACT_APP_BACKEND_SERVER_URL}/users/${userId}/friends`,
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },

@@ -33,7 +33,7 @@ function Home() {
 
         <div className="flex flex-col flex-1 gap-4">
           <UploadPhotoWidget />
-          {/* <PostsWidget isProfile={false} /> */}
+          <PostsWidget isProfile={false} />
         </div>
         <FriendListWidget />
       </div>

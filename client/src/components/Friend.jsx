@@ -33,7 +33,7 @@ function Friend({
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/users/${logedInUserId}/${friendId}`,
+        `${process.env.REACT_APP_BACKEND_SERVER_URL}/users/${logedInUserId}/${friendId}`,
         {
           method: "PATCH",
           headers: {
@@ -76,16 +76,24 @@ function Friend({
       </div>
 
       {/* menu  */}
-      {isSelf && !searchValue ? (
+      {isSelf ? (
         <>
-          <MoreVert onClick={() => setMenu(!menu)} className="cursor-pointer" />
-          {menu && (
-            <div
-              onMouseLeave={() => setMenu(false)}
-              className="absolute flex flex-col top-10 right-6 p-2 rounded-md hover:bg-rose-500 dark:bg-gray-800 "
-            >
-              <button onClick={deletePost}>Delete</button>
-            </div>
+          {!searchValue && (
+            <>
+              {" "}
+              <MoreVert
+                onClick={() => setMenu(!menu)}
+                className="cursor-pointer"
+              />
+              {menu && (
+                <div
+                  onMouseLeave={() => setMenu(false)}
+                  className="absolute flex flex-col top-10 right-6 p-2 rounded-md hover:bg-rose-500 dark:bg-gray-800 "
+                >
+                  <button onClick={deletePost}>Delete</button>
+                </div>
+              )}
+            </>
           )}
         </>
       ) : (
