@@ -7,6 +7,8 @@ import useFetch from "../hook/fetchHook";
 import Loading from "../components/Loading";
 import PostsWidget from "../components/widgets/PostsWidget";
 import { useSelector } from "react-redux";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function Home() {
   const [infoEdit, setInfoEdit] = useState(false);
@@ -23,6 +25,7 @@ function Home() {
   if (isLoading) return <Loading />;
   return (
     <>
+      <Navbar />
       {infoEdit && <EditUser setInfoEdit={setInfoEdit} />}
       <div
         className={`m-[2%] ${
@@ -37,6 +40,7 @@ function Home() {
         </div>
         <FriendListWidget />
       </div>
+      <Footer />
     </>
   );
 }

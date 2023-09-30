@@ -6,7 +6,7 @@ import { getEmailFromToken } from "../../helper/helper";
 
 function FriendListWidget() {
   const dispatch = useDispatch();
-  const Friends = useSelector((state) => state.auth.user?.friends);
+  const friends = useSelector((state) => state.auth.user?.friends);
 
   const getFriends = async () => {
     const token = localStorage.getItem("token");
@@ -33,10 +33,10 @@ function FriendListWidget() {
   return (
     <div className="dark:bg-gray-900 bg-gray-100 w-[20%] p-5 rounded-xl relative shadow-md max-h-fit md:w-full">
       <h3>Friend List</h3>
-      {Friends?.length === 0 ? (
+      {friends?.length === 0 ? (
         <p>User don't have any friends</p>
       ) : (
-        Friends.map((friend) => (
+        friends?.map((friend) => (
           <Friend key={friend._id} {...friend} friendId={friend._id} />
         ))
       )}

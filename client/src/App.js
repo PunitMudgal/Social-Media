@@ -5,7 +5,7 @@ import Register from "./pages/Register";
 import Signin from "./pages/Signin";
 import Profile from "./pages/Profile";
 import Home from "./pages/Home";
-import Navbar from "./components/Navbar";
+// import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 import ProtectedRoute from "./helper/ProtectedRoute";
@@ -17,7 +17,6 @@ function App() {
     <>
       <BrowserRouter>
         <main className={`${darkMode ? "dark text-white bg-gray-950" : ""}`}>
-          <Navbar />
           <Routes>
             <Route path="/" element={<Signin />} />
             <Route path="/register" element={<Register />} />
@@ -38,7 +37,6 @@ function App() {
               }
             />
           </Routes>
-          <Footer />
         </main>
       </BrowserRouter>
     </>

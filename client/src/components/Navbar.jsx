@@ -36,15 +36,12 @@ function Navbar() {
 
   const submitSearch = (e) => {
     if (searchText) {
-      // e.preventDefault();
-      console.log("API CALL");
       const searchPromise = searchUsers(searchText.toLowerCase());
       searchPromise.then((user) => setSearchResults(user.data));
     }
   };
 
   useEffect(() => {
-    console.log("USEEFFECT CALLED");
     if (searchMenu) {
       const timer = setTimeout(() => submitSearch(), 300);
 
@@ -66,7 +63,7 @@ function Navbar() {
 
         {/* search bar  */}
         {token && (
-          <div className="border-2 border-gray-600 flex items-center rounded-lg px-3 bg-gray-200 dark:bg-slate-800 ">
+          <div className="border-2 border-gray-600 flex items-center rounded-md px-3 bg-gray-200 dark:bg-slate-800 ">
             <input
               onChange={(e) => setSearchText(e.target.value)}
               value={searchText}
@@ -123,13 +120,22 @@ function Navbar() {
           <select
             name="user"
             id=""
-            className="bg-transparent p-1 border-2 border-gray-600 rounded-lg dark:bg-slate-800"
+            className="bg-transparent p-1 border-2 border-gray-600 rounded-lg dark:bg-slate-800 uppercase"
           >
             <option value="username">{userName || "User"}</option>
-            <option disabled={!token} value="logout" onClick={userLogout}>
-              logout
-            </option>
           </select>
+          <button
+            className="bg-transparent border border-rose-600 hover:bg-rose-500  rounded-md text-rose-500 hover:text-white px-2 py-1"
+            onClick={userLogout}
+          >
+            Logout
+          </button>
+          <Link
+            className="bg-transparent border border-purple-600 hover:bg-purple-500  rounded-md text-purple-500 hover:text-white px-2 py-1"
+            to="/"
+          >
+            Sign in
+          </Link>
         </div>
       </div>
 
@@ -147,7 +153,7 @@ function Navbar() {
               value={searchText}
               type="text"
               placeholder="Search..."
-              className="bg-transparent focus:outline-none focus:w-40 w-40 "
+              className="bg-transparent focus:outline-none focus:w-40 w-32 "
               onFocus={() => setSearchMenu(true)}
               onBlur={() => setSearchMenu(false)}
             />
@@ -209,10 +215,20 @@ function Navbar() {
               className="bg-transparent p-1 border-2 border-gray-600 rounded-lg"
             >
               <option value="username">{userName || "User"}</option>
-              <option value="logout" onClick={userLogout}>
-                logout
-              </option>
             </select>
+
+            <button
+              className="bg-transparent border border-rose-600 hover:bg-rose-500  rounded-md text-rose-500 hover:text-white px-2 py-1"
+              onClick={userLogout}
+            >
+              Logout
+            </button>
+            <Link
+              className="bg-transparent border border-purple-600 hover:bg-purple-500  rounded-md text-purple-500 hover:text-white px-2 py-1"
+              to="/"
+            >
+              Sign in
+            </Link>
           </div>
         </div>
       )}

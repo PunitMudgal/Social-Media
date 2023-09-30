@@ -5,7 +5,6 @@ axios.defaults.baseURL = process.env.REACT_APP_BACKEND_SERVER_URL;
 const token = localStorage.getItem("token");
 
 export async function getEmailFromToken() {
-  // const token = localStorage.getItem("token");
   if (!token) return Promise.reject("Token Not Found!");
   let decode = await jwt_decode(token);
   return decode;
@@ -14,7 +13,6 @@ export async function getEmailFromToken() {
 export async function registerUser(userData) {
   try {
     await axios.post(`/auth/register`, userData);
-
     return Promise.resolve();
   } catch (error) {
     return Promise.reject({ error });
@@ -39,7 +37,6 @@ export async function Login({ email, password }) {
 /** UPDATE PROFILE */
 export async function updateProfile(userData) {
   try {
-    // const token = localStorage.getItem("token");
     const data = await axios.patch("/users/updateUser", userData, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -52,7 +49,6 @@ export async function updateProfile(userData) {
 /** UPLOAD IMAGE */
 export async function uploadImage(data) {
   try {
-    // const token = localStorage.getItem("token");
     const post = await axios.post("/posts", data, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -65,7 +61,6 @@ export async function uploadImage(data) {
 /** DELETE POST */
 export async function deletePost(postId) {
   try {
-    // const token = localStorage.getItem("token");
     await axios.delete(`/posts/${postId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -89,8 +84,6 @@ export async function searchUsers(inputValue) {
 /** ADD COMMENT */
 export async function addComment(formData) {
   try {
-    // const token = localStorage.getItem("token");
-
     await axios.post(`/comment`, formData, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -113,7 +106,6 @@ export async function getComments(postId) {
 /** DELETE COMMENT */
 export async function deleteComment(commentId) {
   try {
-    // const token = localStorage.getItem("token");
     await axios.delete(`/comment/${commentId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });

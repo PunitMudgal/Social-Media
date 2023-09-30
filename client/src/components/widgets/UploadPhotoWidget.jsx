@@ -47,7 +47,7 @@ function UploadPhotoWidget() {
           <Avatar picturePath={user?.picturePath} />
           <input
             type="text"
-            className="dark:bg-slate-700 bg-slate-300 rounded-3xl py-3 w-full px-6"
+            className="dark:bg-slate-700 bg-slate-200 rounded-3xl py-3 w-full px-6 border border-gray-500 "
             placeholder="What's on your mind today..."
             value={post}
             required
@@ -87,7 +87,7 @@ function UploadPhotoWidget() {
             disabled={!post}
             onClick={handlePost}
             type="submit"
-            className="bg-purple-600 border border-purple-800 text-white px-3 py-1 rounded-md"
+            className="bg-transparent border border-purple-600 hover:bg-purple-500  rounded-md text-purple-500 hover:text-white px-2 py-1"
           >
             Post
           </button>

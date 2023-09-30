@@ -6,14 +6,15 @@ import { Toaster, toast } from "react-hot-toast";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Login } from "../helper/helper";
+import Footer from "../components/Footer";
 
 function Signin() {
   const navigate = useNavigate();
 
   const { values, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: {
-      email: "ssmudgal01@gmail.com",
-      password: "@password",
+      email: "",
+      password: "",
     },
     validate: loginVerify,
     validateOnBlur: false,
@@ -22,7 +23,7 @@ function Signin() {
       let loginPromise = Login(values);
 
       toast.promise(loginPromise, {
-        loading: "Loging In...",
+        loading: "Logging In...",
         success: "login Successful",
         error: "Couldn't Login",
       });
@@ -37,69 +38,72 @@ function Signin() {
   });
 
   return (
-    <div
-      className={`${styles.full_registration} container flex flex-col items-center justify-center bg-gray-200`}
-    >
-      <Toaster position="top-center" reverseOrder={false}></Toaster>
-      <div className="flex flex-col items-center min-w-full">
-        <h2 className="text-center text-4xl font-semibold mb-2 md:text-3xl text-gray-200">
-          SIGNIN HERE
-        </h2>
-        <div className={styles.form_div}>
-          <h3 className={styles.logo}>SOCIAL</h3>
-          <Box
-            onSubmit={handleSubmit}
-            className={styles.register_form}
-            component="form"
-            sx={{
-              "& > :not(style)": { m: 1, width: "40ch" },
-            }}
-            noValidate
-            autoComplete="on"
-          >
-            <TextField
-              label="Email"
-              value={values.email}
-              name="email"
-              className="lowercase"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              variant="outlined"
-              required
-            />
-            <TextField
-              label="Password"
-              value={values.password}
-              name="password"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              variant="outlined"
-              type="password"
-              required
-            />
-
-            <button
-              type="submit"
-              variant="outlined"
-              className={styles.form_btn}
+    <>
+      <div
+        className={`${styles.full_registration} container flex flex-col items-center justify-center bg-gray-200`}
+      >
+        <Toaster position="top-center" reverseOrder={false}></Toaster>
+        <div className="flex flex-col items-center min-w-full">
+          <h2 className="text-center text-4xl font-semibold mb-2 md:text-3xl text-gray-600">
+            SIGNIN HERE
+          </h2>
+          <div className={styles.form_div}>
+            <h3 className={styles.logo}>SOCIAL</h3>
+            <Box
+              onSubmit={handleSubmit}
+              className={styles.register_form}
+              component="form"
+              sx={{
+                "& > :not(style)": { m: 1, width: "40ch" },
+              }}
+              noValidate
+              autoComplete="on"
             >
-              Submit
-            </button>
-          </Box>
-          <div className="text-center py-4 md:py-2">
-            <span className="text-teal-800">
-              Don't have an account?{" "}
-              <Link
-                className="text-red-500 font-semibold underline"
-                to="/register"
+              <TextField
+                label="Email"
+                value={values.email}
+                name="email"
+                className="lowercase"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                variant="outlined"
+                required
+              />
+              <TextField
+                label="Password"
+                value={values.password}
+                name="password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                variant="outlined"
+                type="password"
+                required
+              />
+
+              <button
+                type="submit"
+                variant="outlined"
+                className={styles.form_btn}
               >
-                Register
-              </Link>
-            </span>
+                Submit
+              </button>
+            </Box>
+            <div className="text-center py-4 md:py-2">
+              <span className="text-teal-800">
+                Don't have an account?{" "}
+                <Link
+                  className="text-red-500 font-semibold underline"
+                  to="/register"
+                >
+                  Register
+                </Link>
+              </span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }
 

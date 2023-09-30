@@ -117,7 +117,7 @@ function EditUser({ setInfoEdit }) {
           />
           {/* <Tooltip title="Email cannot be changed"> */}
           <input
-            className="p-2 dark:bg-slate-700 bg-gray-200"
+            className="p-2 dark:bg-slate-700 bg-gray-200 cursor-not-allowed"
             placeholder="Email"
             value={values.email}
             name="email"
@@ -125,7 +125,10 @@ function EditUser({ setInfoEdit }) {
           />
           {/* </Tooltip> */}
         </div>
-        <button type="submit" className="bg-green-500 rounded-lg p-2">
+        <button
+          type="submit"
+          className="bg-transparent border border-green-600 hover:bg-green-500  rounded-md text-green-500 hover:text-white px-2 py-1"
+        >
           Update
         </button>
       </form>
