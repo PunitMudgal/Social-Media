@@ -35,20 +35,16 @@ function UserWidget({
       {!friendProfile && (
         <>
           <Tooltip title="Edit Info" placement="top">
-            <>
-              <EditNoteRounded
-                className="float-left cursor-pointer"
-                onClick={profileInfoEdit}
-              />
-            </>
+            <EditNoteRounded
+              className="float-left cursor-pointer"
+              onClick={profileInfoEdit}
+            />
           </Tooltip>
           <Tooltip title="Logout">
-            <>
-              <LogoutRounded
-                onClick={handleLogout}
-                className="float-right cursor-pointer"
-              />
-            </>
+            <LogoutRounded
+              onClick={handleLogout}
+              className="float-right cursor-pointer"
+            />
           </Tooltip>{" "}
         </>
       )}

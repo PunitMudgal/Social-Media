@@ -81,7 +81,7 @@ function Navbar() {
           </div>
         )}
         {searchMenu && (
-          <div className="absolute top-16 left-[31.95%] rounded-b-md p-2 dark:bg-slate-800 bg-gray-100 w-[26.6rem] z-40 border-x border-b border-gray-400 shadow-lg ">
+          <div className="absolute top-16 left-[26.6%] rounded-b-md p-2 dark:bg-slate-800 bg-gray-100 w-[26.6rem] z-40 border-x border-b border-gray-400 shadow-lg ">
             {searchResults.map((user) => (
               <div className="rounded-md hover:border border-teal-500">
                 {" "}

@@ -28,7 +28,7 @@ function Home() {
       <Navbar />
       {infoEdit && <EditUser setInfoEdit={setInfoEdit} />}
       <div
-        className={`m-[2%] ${
+        className={`m-[1%] ${
           infoEdit && "blur-sm"
         } flex justify-between gap-5 md:flex md:flex-col `}
       >
